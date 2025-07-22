@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Django specific
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+local_settings.py
+
+# PostgreSQL
+*.pgsql
+*.psql
+*.sql
+*.dump
+.pgdata/
+.psql_history
+
+# Virtual Environments
+.env
+.venv/
+venv/
+ENV/
+env/
+*.env
+
+# Migrations
+**/migrations/
+!*/migrations/__init__.py
+
+# Testing & Coverage
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.pytest_cache/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.iml
+
+# MyPy & other tools
+.mypy_cache/
+.dmypy.json
+
+# OS files
+.DS_Store
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
