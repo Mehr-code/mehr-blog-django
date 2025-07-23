@@ -1,0 +1,160 @@
+body.bg-custom {
+    background: radial-gradient(circle at top left, #1f1c2c, #302b63, #24243e);
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f1f1f1;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
+}
+
+body.bg-custom::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+    opacity: 0.05;
+    z-index: 0;
+  }
+
+/* افکت هاور برای لینک‌ها */
+.text-gradient-hover {
+      position: relative;
+      color: #aaffcc;
+      transition: color 0.3s ease;
+}
+.text-gradient-hover::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: #00ff99;
+      transition: width 0.3s ease;
+}
+.text-gradient-hover:hover {
+      color: #00ff99 !important;
+}
+.text-gradient-hover:hover::after {
+      width: 100%;
+}
+
+/* انیمیشن نوار رنگی روی متن لوگو */
+@keyframes gradient-text {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+.text-gradient {
+  background: linear-gradient(
+        90deg,
+        #00ff99,
+        #00cc88,
+        #00ff99,
+        #00cc88,
+        #00ff99
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-text 3s linear infinite;
+}
+
+
+  .carousel-img-fixed {
+    filter: contrast(1.1) brightness(1.05);
+    transition: transform 0.6s ease-in-out;
+  }
+
+  .carousel-item.active .carousel-img-fixed {
+    transform: scale(1.01);
+  }
+
+  .carousel-caption {
+    backdrop-filter: blur(10px) saturate(150%);
+    background-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    bottom: 2rem !important;
+  }
+
+  .shadow-text {
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  }
+
+
+
+
+
+
+.custom-carousel-btn {
+  width: 55px;
+  height: 55px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(145deg, #00ffc3, #00d0a0);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.custom-carousel-btn:hover {
+  background: linear-gradient(145deg, #00d0a0, #00ffc3);
+  box-shadow: 0 0 25px rgba(0, 255, 170, 0.6);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.custom-carousel-btn:focus {
+  outline: none;
+}
+
+.custom-arrow-icon {
+  color: #000;
+  font-size: 1.5rem;
+  text-shadow: 0 0 10px #00ffcc;
+}
+
+
+.blog-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 255, 200, 0.15);
+  backdrop-filter: blur(12px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.1);
+}
+
+.blog-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 0 35px rgba(0, 255, 170, 0.35);
+}
+
+.blog-card-img {
+  height: 200px;
+  overflow: hidden;
+}
+
+.blog-card-img img {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.blog-card:hover .blog-card-img img {
+  transform: scale(1.1);
+}
+
+.blog-title {
+  color: #00ffcc;
+  text-shadow: 0 0 8px rgba(0, 255, 200, 0.4);
+}

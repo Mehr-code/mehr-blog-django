@@ -3,85 +3,86 @@
 {% block content %}
 
 <!-- Carousel -->
-<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
+<div id="glassCarousel" class="carousel slide carousel-fade mb-5 rounded-4 overflow-hidden shadow-lg" data-bs-ride="carousel">
+  <!-- Indicators -->
+  <div class="carousel-indicators mb-2">
     {% for item in carousel %}
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{forloop.counter0}}" class="{% if forloop.first %}active{% endif %}" aria-current="true" aria-label="Slide {{forloop.counter}}"></button>
-      {% endfor %}
-    </div>
-    <div class="carousel-inner">
-
-    {% for item in carousel %}
-
-      <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="10000">
-        <img src="{{item.image}}" class="d-block w-100" alt="..." style="max-height:500px">
-        <div class="carousel-caption d-none d-md-block">
-          <h5><a href="{% url 'detail' item.pk %}" style="text-decoration:none; color:white">{{item.title}}</a></h5>
-          <p style="color:white">{{item.description}}</p>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+      <button type="button" data-bs-target="#glassCarousel" data-bs-slide-to="{{ forloop.counter0 }}"
+        class="{% if forloop.first %}active{% endif %}" aria-current="true"
+        aria-label="Slide {{ forloop.counter }}"></button>
+    {% endfor %}
   </div>
-<br />
-<!-- nav
-    <ul class="nav" style="background-color: #e3f2fd">
-      <li class="nav-item">
-        <span class="nav-link nav-brand active" aria-current="page">News</span>
-      </li>
-    </ul> -->
-<!-- News card -->
-<br />
-<div class="container my-4">
-    <div class="row">
+
+  <!-- Slides -->
+  <div class="carousel-inner">
+    {% for item in carousel %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}" data-bs-interval="8000">
+      <div class="ratio ratio-16x9">
+        <img src="{{ item.image }}" class="d-block w-100 carousel-img-fixed" alt="{{ item.title }}" style="object-fit: cover;" />
+      </div>
+
+      <!-- Caption OUTSIDE ratio -->
+      <div class="carousel-caption glass-effect text-start px-4 py-3 rounded-3" style="bottom: 2rem;">
+        <h3 class="fw-bold text-white shadow-text mb-2">
+          <a href="{% url 'detail' item.pk %}" class="text-white text-decoration-none">
+            {{ item.title }}
+          </a>
+        </h3>
+        <p class="text-white-50 mb-2">{{ item.description|truncatewords:15 }}</p>
+        <a href="{% url 'detail' item.pk %}" class="btn btn-outline-info rounded-pill mt-2 shadow-sm">مطالعه بیشتر</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Controls -->
+  <button class="carousel-control-prev custom-carousel-btn" type="button" data-bs-target="#glassCarousel" data-bs-slide="prev">
+    <span class="custom-arrow-icon"><i class="fas fa-chevron-left"></i></span>
+    <span class="visually-hidden">قبلی</span>
+  </button>
+  <button class="carousel-control-next custom-carousel-btn" type="button" data-bs-target="#glassCarousel" data-bs-slide="next">
+    <span class="custom-arrow-icon"><i class="fas fa-chevron-right"></i></span>
+    <span class="visually-hidden">بعدی</span>
+  </button>
+
+</div>
+
+<!-- Blog Posts Section -->
+<div class="container mb-5">
+  <div class="row">
     {% for item in posts %}
-        <div class="col-md-4 mb-4">
-          <div class="card h-100">
-            <img src="{{item.image}}" class="card-img-top" alt="{{item.title}}">
-            <div class="card-body">
-              <h5 class="card-title">{{item.title}}
-              </h5>
-              <p class="card-text">{{item.description | truncatewords:20}}</p>
-  
-              <!-- Like button and count -->
-             <!-- Like & Comment Section -->
-             <div class="d-flex align-items-center justify-content-between">
-              
-                <!-- Like Button -->
-                <div>
-                  <button class="btn btn-outline-danger btn-sm me-2 like-btn" data-post-id="">
-                    <i class="fa fa-heart"></i> Like
-                  </button>
-                  <span class="like-count">{{item.likes}}</span> Likes
-                </div>
-  
-                <!-- Comment Count -->
-                <div>
-                  <i class="fa fa-comment text-primary"></i>
-                  <span class="comment-count">{{item.comments.count}}</span> Comments
-                </div>
-  
+      <div class="col-md-6 col-lg-4 mb-4 d-flex">
+        <div class="blog-card glass-card rounded-4 overflow-hidden position-relative d-flex flex-column w-100 h-100">
+
+          <!-- Image -->
+          <div class="blog-card-img" style="height: 200px; overflow: hidden;">
+            <img src="{{ item.image }}" class="w-100 h-100" alt="{{ item.title }}" style="object-fit: cover;" />
+          </div>
+
+          <!-- Content -->
+          <div class="p-4 d-flex flex-column justify-content-between flex-grow-1">
+            <div>
+              <h5 class="fw-bold text-white mb-2 blog-title">{{ item.title }}</h5>
+              <p class="text-light small">{{ item.description | truncatewords:20 }}</p>
+            </div>
+
+            <!-- Bottom actions -->
+            <div class="mt-4">
+              <div class="d-flex justify-content-between align-items-center mb-3 text-white-50 small">
+                <span><i class="fas fa-heart text-danger me-1"></i>{{ item.likes }} لایک</span>
+                <span><i class="fas fa-comment text-info me-1"></i>{{ item.comments.count }} نظر</span>
               </div>
-  
-  
-              <!-- Read more link -->
-              <a href="{% url 'detail' item.pk%}" class="btn btn-primary mt-2">Read more</a>
+              <a href="{% url 'detail' item.pk %}" class="btn btn-sm btn-outline-info w-100 rounded-pill fw-bold">
+                مشاهده کامل
+              </a>
             </div>
           </div>
+
         </div>
-        {% endfor %}
-    </div>
-  </div>
-  
-  
+      </div>
+    {% endfor %}
   </div>
 </div>
+
+
 {% endblock %}

@@ -1,73 +1,75 @@
 {% extends "base.html" %}
-{% block title %}{{post.title}}{% endblock title %}
+{% block title %}{{ post.title }}{% endblock title %}
+
 {% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
 
-    <!-- news details -->
-    <div class="container my-5">
-      <div class="row">
-        <div class="col-lg-12 mx-auto">
-          <!-- Post Details -->
-          <div class="card">
-            <img src="{{post.image}}" class="card-img-top" alt="{{post.title}}" />
-            <div class="card-body">
-              <h2 class="card-title">
-                {{post.title}}
-              </h2>
-              <p class="text-muted">Published on: {{post.date}}</p>
-              <p class="card-text">
-                {{post.content | safe}}
-              </p>
-
-              <!-- Like Button (Without AJAX) -->
-              <form method="POST" action="">
-                <button type="submit" class="btn btn-outline-danger">
-                  <i class="fa fa-heart"></i> Like
-                </button>
-                <span>{{post.likes}}</span> Likes
-              </form>
-
-              <!-- Comment Count -->
-              <div class="mt-2">
-                <i class="fa fa-comment text-primary"></i>
-                <span>{{post.comments.count}}</span> Comments
-              </div>
-            </div>
+      <!-- Post Card -->
+      <div class="card shadow-sm border-0 mb-5">
+        {% if post.image %}
+        <div class="ratio ratio-16x9">
+          <img src="{{ post.image }}" class="card-img-top" alt="{{ post.title }}" style="object-fit: cover;" />
+        </div>
+        {% endif %}
+        <div class="card-body">
+          <h2 class="card-title mb-3">{{ post.title }}</h2>
+          <p class="text-muted mb-4">🕒 تاریخ انتشار: {{ post.date }}</p>
+          <div class="card-text mb-4" style="line-height: 1.8;">
+            {{ post.content|safe }}
           </div>
 
-          <!-- Comments Section -->
-          <div class="mt-4">
-            <h4>Comments ({{comments.count}})</h4>
-            <ul class="list-group">
-              {% for comment in comments %}
-              
-              <li class="list-group-item">
-                <p class="mb-1">
-                  <strong>{{comment.name}}: </strong>{{comment.comment}}
-                </p>
-                <small class="text-muted">{{comment.date}}</small>
-              </li>
-              {% empty %}
-              <li class="list-group-item text-muted">
-                No comments yet. Be the first to comment!
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
+          <!-- Like Button -->
+          <form method="POST" action="" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">
+              ❤️ پسندیدن
+            </button>
+          </form>
+          <span class="ms-2">{{ post.likes }}</span> لایک
 
-          <!-- Comment Form -->
-          <div class="mt-4">
-            <h4>Leave a Comment</h4>
-            <form method="POST">
-              {% csrf_token %}
-              <div class="mb-3">
-              {{form.as_p}}
-              </div>
-              <button type="submit" class="btn btn-primary">
-                Post Comment
-              </button>
-            </form>
+          <!-- Comment Count -->
+          <div class="mt-3">
+            💬 <strong>{{ post.comments.count }}</strong> دیدگاه
           </div>
         </div>
       </div>
+
+      <!-- Comments -->
+      <div class="mb-5">
+        <h4 class="mb-3">نظرات کاربران ({{ comments.count }})</h4>
+        <ul class="list-group">
+          {% for comment in comments %}
+          <li class="list-group-item">
+            <p class="mb-1">
+              <strong>{{ comment.name }}:</strong> {{ comment.comment }}
+            </p>
+            <small class="text-muted">{{ comment.date }}</small>
+          </li>
+          {% empty %}
+          <li class="list-group-item text-muted">
+            هنوز نظری ثبت نشده. اولین نفر باش! ✍️
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Comment Form -->
+      <div class="mb-5">
+        <h4 class="mb-3">ثبت نظر</h4>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="mb-3">
+            {{ form.as_p }}
+          </div>
+          <button type="submit" class="btn btn-primary">
+            ارسال نظر
+          </button>
+        </form>
+      </div>
+
     </div>
+  </div>
+</div>
 {% endblock content %}
